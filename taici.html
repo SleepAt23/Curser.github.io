@@ -2,7 +2,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="bootstrap-3.3.5-dist\css\bootstrap.css"/>
+<link rel="stylesheet" href="bootstrap-3.3.5-dist\css\bootstrap.min.css"/>
 <link rel="stylesheet" href="fontawesome/css/font-awesome.css"/>
 </head>
 
@@ -73,7 +73,7 @@ $.ajax({
       request.setRequestHeader("apikey", '125172521aad92f138033c06b18f4c0d');
   },
   dataType: "json",
-  url: 'http://apis.baidu.com/acman/zhaiyanapi/tcrand?fangfa=json',
+  url: 'https://apis.baidu.com/acman/zhaiyanapi/tcrand?fangfa=json',
   success: function(data)
   {
     $(".ba").animate({
