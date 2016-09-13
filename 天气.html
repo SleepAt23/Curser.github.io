@@ -156,7 +156,7 @@ function api() {
           request.setRequestHeader("apikey", '125172521aad92f138033c06b18f4c0d');
       },
       dataType: "json",
-      url: 'http://apis.baidu.com/apistore/weatherservice/recentweathers?cityname='+search,
+      url: 'https://apis.baidu.com/apistore/weatherservice/recentweathers?cityname='+search,
       success: function(data) {
 
             zhishu(data);
