@@ -1,0 +1,264 @@
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<link rel="stylesheet" href="bootstrap-3.3.5-dist\css\bootstrap.css"/>
+<link rel="stylesheet" href="fontawesome/css/font-awesome.css"/>
+<link rel="stylesheet" href="css/input.css"/>
+
+<script src="js/jquery-3.0.0.min.js"></script>
+
+
+<style>
+body
+  {
+  background: url(ima/back.jpg);
+
+background-position:right;
+background-size: cover;
+background-attachment: fixed;
+
+  }
+  .suzhou{
+
+  }
+  .fontcolor{
+    color: white;
+    background-color:rgba(0,0,0,0.5);
+
+font-size: 50px;
+margin-bottom: 50px;
+  }
+  .span{
+    width: 100%;
+
+  }
+  li{
+    list-style: none;
+    border-bottom:1px dashed #ffffff;
+
+
+  }
+  span{
+    font-size: 20px;
+  }
+.background{//图片模糊
+
+    -webkit-filter: blur(10px);
+
+       -moz-filter: blur(10px);
+
+        -ms-filter: blur(10px);
+
+            filter: blur(10px);
+
+}
+.list-group-item{
+  background-color:rgba(0,0,0,0.0);
+  border-bottom:1px dashed #fff;
+  list-style:none;
+  border-left: 0px;
+  border-right: 0px;
+  border-top: 0px;
+  display: flex;
+}
+
+.fon{
+  font-size: 35px;
+}
+
+.time{
+margin-left:50px;
+}
+.chengdu{
+  font-size: 30px;
+font-family:Microsoft YaHei;
+
+}
+.zhishu{
+font-size: 30px;
+color: gray;
+}
+
+</style>
+
+<body>
+  <section class="webdesigntuts-workshop navbar-fixed-top am-btn-block">
+
+  		<input id="area"type="search" placeholder="请输入城市...">
+  		<button id="bu3">搜索</button>
+
+</section>
+<div id="suzhou" style="color:white;">
+
+  <h1 id="city"style="font-size:80px;margin-top:60px;"></h1>
+  <div id="time1"style="font-size:25px;"></div>
+  <div>
+  <div id="dati"style="font-size:30px;margin-top:250px;"></div>
+  <span id="max"class="glyphicon glyphicon-arrow-up"style="font-size:30px;"></span>
+  <span id="min"class="glyphicon glyphicon-arrow-down"style="font-size:30px;"></span>
+  <div id="tem"style="font-size:100px;"></div>
+  </div>
+
+</div>
+
+
+
+<div id="Forecast"class="fontcolor  col-lg-6">
+<p>预报</p>
+<hr>
+<div id="Li"></div>
+
+
+<span id="bu1"type="button" class="	btn btn-primary-outline fon">预报</span>|<span id="bu2"type="button" class="btn btn-primary-outline fon">历史</span>
+</div>
+<div id="Details"class="fontcolor  col-lg-6">
+  <p>生活指数</p>
+  <hr>
+  <!--  <div style="margin-top:80;"><img src="ima/day/晴.png" style="width:120;"></img></div>
+    <div style="margin-top:50;"><img src="ima/day/晴.png" style="width:120;"></img></div>
+    <div style="margin-top:20;"><img src="ima/day/晴.png" style="width:120;"></img></div>
+    <div style="margin-top:20;"><img src="ima/day/晴.png" style="width:120;"></img></div>
+    <div style="margin-top:80;"><img src="ima/day/晴.png" style="width:120;"></img></div>
+    <div style="margin-top:80;"><img src="ima/day/晴.png" style="width:120;"></img></div>
+-->
+<div id="zhiShu"></div>
+</div>
+
+
+
+
+
+
+</body>
+<script>
+
+  var search="苏州";
+
+$("#bu3").click(function () {
+
+
+  if (search!="") {
+      search=$("#area").val().trim();
+      api();
+  }
+
+  else{
+    alert("输入有误");
+  }
+});
+
+function  time(){
+  setInterval("document.getElementById('time1').innerHTML = new Date().toLocaleString();", 1000);
+}
+function api() {
+  $.ajax({
+      beforeSend: function(request) {
+          request.setRequestHeader("apikey", '125172521aad92f138033c06b18f4c0d');
+      },
+      dataType: "json",
+      url: 'http://apis.baidu.com/apistore/weatherservice/recentweathers?cityname='+search,
+      success: function(data) {
+
+            zhishu(data);
+            yubao(data);
+            $("#bu1").click(function () {
+              $("#Li").fadeOut(500,function() {
+                yubao(data);
+                $("#bu1").css("color","white");
+                $("#bu2").css("color","black");
+                $("#Li").fadeIn(500);
+});
+});
+
+
+$("#bu2").click(function () {
+  $("#Li").fadeOut(500,function() {
+  lishi(data);
+  $("#bu2").css("color","white");
+  $("#bu1").css("color","black");
+
+    $("#Li").fadeIn(500);
+
+});});
+
+
+
+
+          $("#city").html(data.retData.city);
+          $("#dati").html(data.retData.today.type);
+          $("#max").html(data.retData.today.hightemp);
+          $("#min").html(data.retData.today.lowtemp);
+          $("#tem").html(data.retData.today.curTemp);
+
+
+      }
+  })
+
+}
+
+function yubao(data) {
+  var h="<ul>"
+      for(var i=0;i<data.retData.forecast.length;i++)
+      {
+        var h1=data.retData.forecast[i];
+        var l="<li class='list-group-item'><span class='col-xs-2 fon'>"
+        +h1.week+"</span><span class='col-xs-2 fon'>"
+
+          + " <img style='width:80px;'src='ima/day/"  +data.retData.forecast[i].type+ ".png'></img>"
+        +"</span><span class='col-xs-2 fon'>"
+        +data.retData.forecast[i].fengxiang+"</span><span class='col-xs-2 fon'>"
+        +data.retData.forecast[i].fengli+"</span><span class='col-xs-2 fon'>"
+        +data.retData.forecast[i].hightemp+"</span><span class='col-xs-2 fon'style='color:#7373b9;'>"
+        +data.retData.forecast[i].lowtemp+"</span>";
+  h+=l;
+      }
+      h+="</ul>";
+        $("#Li").html(h);
+}
+function lishi(data) {
+  var t="<ul class='display: flex;'>"
+      for(var x=0;x<data.retData.history.length;x++)
+      {
+        var h3=data.retData.history[x];
+        var l3="<li class='list-group-item'><span class='col-xs-2 fon'>"
+        +h3.week+"</span><span class='col-xs-2 fon'>"
+
+        + " <img style='width:80px;'src='ima/day/"  +data.retData.history[x].type+ ".png'></img>"
+
+        +"</span><span class='col-xs-2 fon'>"
+        +data.retData.history[x].fengxiang+"</span><span class='col-xs-2 fon'>"
+        +data.retData.history[x].fengli+"</span><span class='col-xs-2 fon'>"
+        +data.retData.history[x].hightemp+"</span><span class='col-xs-2 fon'style='color:#7373b9;'>"
+        +data.retData.history[x].lowtemp+"</span>";
+  t+=l3;
+      }
+      t+="</ul>";
+        $("#Li").html(t);
+}
+function zhishu(data) {
+  var z="<ul style='margin-left:150;'>"
+      for(var j=0;j<data.retData.today.index.length;j++)
+      {
+        var h2=data.retData.today.index[j];
+        var l1="<li><span class='chengdu col-xs-3'>"
+        +h2.index+"</span><span class='zhishu col-xs-3 col-xs-offset-6'>"+"["+h2.name+"]"+"</span><div style='font-size:20px;'>"
+        +h2.details+"</div>";
+z+=l1;
+}
+   z+="</ul>";
+
+   $("#zhiShu").html(z);
+}
+
+$(function() {
+
+time();
+api();
+
+
+});
+
+
+
+</script>
+</html>
