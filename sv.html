@@ -1,0 +1,61 @@
+<html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+  <link rel="stylesheet" href="bootstrap-3.3.5-dist\css\bootstrap.css" />
+  <link rel="stylesheet" href="fontawesome/css/font-awesome.css" />
+</head>
+<style>
+  body {
+    background: url(image/angrybird.jpg);
+    background-size: cover;
+    background-attachment: fixed;
+  }
+
+  #puzzle {
+    position: absolute;
+    top: 35%;
+    left: 5%;
+    margin-top: -190px;
+    width: 686px;
+    height: 388px;
+  }
+
+  video {
+    display: none;
+  }
+
+  #img {
+    display: none;
+  }
+  #puzzle{
+      transform: perspective(700px) rotateY(45deg);
+  }
+</style>
+
+<body>
+  <img id="img" src="image/cover.png" class="img-responsive"></img>
+  <div id="puzzle">
+    <canvas id="leftup"></canvas>
+    <canvas id="rightup"></canvas>
+    <canvas id="leftdown"></canvas>
+    <canvas id="rightdown"></canvas>
+    <div>
+      <button id="change" type="button" class="btn am-btn am-btn-secondary">播放</button>
+
+    </div>
+  </div>
+
+
+  <video id="video" src="video/angrybird.mkv" loop autoplay></video>
+  <video id="video1" src="video/angrybird1.mkv" loop autoplay></video>
+  <video id="video2" src="video/angrybird2.mkv" loop autoplay></video>
+  <video id="video3" src="video/angrybird3.mkv" loop autoplay></video>
+  <video id="video4" src="video/angrybird4.mkv" loop autoplay></video>
+
+</body>
+<script src="js/jquery-3.0.0.min.js"></script>
+<script src="js/view.js"></script>
+
+</html>
